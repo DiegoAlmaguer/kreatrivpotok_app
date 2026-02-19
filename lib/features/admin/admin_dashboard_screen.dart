@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../core/utils/date_formatter.dart';
+
 class AdminDashboardScreen extends StatefulWidget {
   const AdminDashboardScreen({super.key});
 
@@ -97,11 +99,14 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                       final id = p['id'].toString();
                       final title = (p['title'] ?? 'Без названия').toString();
                       final status = (p['status'] ?? 'new').toString();
+                      final createdAt = DateFormatter.dateTimeWithRelative(
+                        p['created_at'],
+                      );
 
                       return Card(
                         child: ListTile(
                           title: Text(title),
-                          subtitle: Text('Статус: $status'),
+                          subtitle: Text('Статус: $status\nСоздан: $createdAt'),
                           trailing: const Icon(Icons.chevron_right),
                           onTap: () => context.push('/admin/project/$id'),
                         ),

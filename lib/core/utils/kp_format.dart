@@ -1,19 +1,17 @@
-import 'package:intl/intl.dart';
+import 'date_formatter.dart';
 
 class KPFormat {
-  static final DateFormat _date = DateFormat('dd.MM.yyyy');
-  static final DateFormat _dateTime = DateFormat('dd.MM.yyyy  HH:mm');
 
   static String date(dynamic value) {
-    final dt = _toDateTime(value);
-    if (dt == null) return '—';
-    return _date.format(dt.toLocal());
+    return DateFormatter.date(value);
   }
 
   static String dateTime(dynamic value) {
-    final dt = _toDateTime(value);
-    if (dt == null) return '—';
-    return _dateTime.format(dt.toLocal());
+    return DateFormatter.dateTime(value);
+  }
+
+  static String relativeDate(dynamic value) {
+    return DateFormatter.relative(value);
   }
 
   static String money(dynamic value, {String? currency}) {
@@ -26,22 +24,6 @@ class KPFormat {
     return cur.isEmpty ? s : '$s $cur';
   }
 
-  static DateTime? _toDateTime(dynamic value) {
-    if (value == null) return null;
-    if (value is DateTime) return value;
-
-    // на всякий случай, если прилетает timestamp
-    if (value is int) {
-      try {
-        // ms timestamp
-        return DateTime.fromMillisecondsSinceEpoch(value);
-      } catch (_) {}
-    }
-
-    final s = value.toString().trim();
-    if (s.isEmpty) return null;
-    return DateTime.tryParse(s);
-  }
 
   static num? _toNum(dynamic value) {
     if (value == null) return null;

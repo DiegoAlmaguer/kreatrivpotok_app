@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../core/utils/date_formatter.dart';
+
 enum ProjectMode { staff, admin }
 
 class StaffProjectScreen extends StatefulWidget {
@@ -146,7 +148,7 @@ class _StaffProjectScreenState extends State<StaffProjectScreen> {
           if (p == null) return const Center(child: Text('Проект не найден'));
 
           final title = (p['title'] ?? 'Без названия').toString();
-          final createdAt = (p['created_at'] ?? '').toString();
+          final createdAt = DateFormatter.dateTimeWithRelative(p['created_at']);
           final clientId = (p['client_id'] ?? '').toString();
 
           return ListView(
@@ -213,7 +215,7 @@ class _StaffProjectScreenState extends State<StaffProjectScreen> {
                     children: items.map((e) {
                       final amount = e['amount']?.toString() ?? '-';
                       final st = e['status']?.toString() ?? '-';
-                      final dt = e['created_at']?.toString() ?? '';
+                      final dt = DateFormatter.dateTimeWithRelative(e['created_at']);
                       return ListTile(
                         contentPadding: EdgeInsets.zero,
                         title: Text('Сумма: $amount'),

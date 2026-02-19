@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../core/utils/date_formatter.dart';
+
 class StaffProjectsScreen extends StatefulWidget {
   const StaffProjectsScreen({super.key});
 
@@ -99,7 +101,9 @@ class _StaffProjectsScreenState extends State<StaffProjectsScreen> {
                       final id = p['id'].toString();
                       final title = (p['title'] ?? 'Без названия').toString();
                       final status = (p['status'] ?? 'new').toString();
-                      final createdAt = (p['created_at'] ?? '').toString();
+                      final createdAt = DateFormatter.dateTimeWithRelative(
+                        p['created_at'],
+                      );
 
                       return Card(
                         child: ListTile(
