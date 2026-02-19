@@ -1,8 +1,10 @@
-// lib/main.dart
 import 'package:flutter/material.dart';
-import 'app.dart';
 
-void main() {
+import 'app.dart';
+import 'core/di/app_bootstrap.dart';
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const App());
+  await AppBootstrap.instance.init();
+  runApp(const KreativPotokApp());
 }

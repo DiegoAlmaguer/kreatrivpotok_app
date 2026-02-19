@@ -1,16 +1,19 @@
-// lib/app.dart
 import 'package:flutter/material.dart';
-import 'router/app_router.dart';
-import 'ui/kp_theme.dart';
 
-class App extends StatelessWidget {
-  const App({super.key});
+import 'core/router/app_router.dart';
+import 'core/theme/app_theme.dart';
+
+class KreativPotokApp extends StatelessWidget {
+  const KreativPotokApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      theme: KPTheme.dark(),
+      title: 'Kreativ Potok',
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.system,
       routerConfig: AppRouter.router,
     );
   }

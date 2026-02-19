@@ -1,16 +1,45 @@
-# kreativ_potok_app
+# Kreativ Potok
 
-A new Flutter project.
+Полный rewrite Flutter-приложения личного кабинета с role-based доступом и Supabase backend.
 
-## Getting Started
+## Стек
+- Flutter + Material 3
+- GoRouter
+- Supabase Flutter
+- flutter_dotenv
 
-This project is a starting point for a Flutter application.
+## Архитектура
+- `lib/core` — theme, routing, env/bootstrap, widgets, utils
+- `lib/data` — models/repositories/services
+- `lib/features` — auth/dashboard/projects/tasks/profile/admin/shell
 
-A few resources to get you started if this is your first Flutter project:
+## ENV
+1. Скопируйте `.env.example` в `.env`
+2. Заполните:
+   - `SUPABASE_URL`
+   - `SUPABASE_ANON_KEY`
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+> Никогда не коммитьте `.env`.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Запуск
+```bash
+flutter pub get
+flutter analyze
+flutter test
+flutter run -d chrome
+```
+
+## Роли
+- **client**: dashboard, projects, tasks(read-only scope by RLS), profile
+- **staff**: dashboard, assigned projects/tasks, profile
+- **admin**: dashboard, projects, users management, profile
+
+Роль читается из `profiles.role`.
+
+## Как создать пользователей и роли
+1. Создать пользователя через экран регистрации или Supabase Auth.
+2. В таблице `profiles` выставить поле `role` (`client|staff|admin`).
+3. Для staff scope назначать проекты через поле `projects.staff_id`.
+
+## DB schema
+См. `docs/db_schema.md` (инференс по существующим запросам проекта).

@@ -1,0 +1,18 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+class AppEnv {
+  AppEnv._();
+
+  static Future<void> load() => dotenv.load(fileName: '.env');
+
+  static String get supabaseUrl => dotenv.env['SUPABASE_URL'] ?? '';
+  static String get supabaseAnonKey => dotenv.env['SUPABASE_ANON_KEY'] ?? '';
+
+  static void validate() {
+    if (supabaseUrl.isEmpty || supabaseAnonKey.isEmpty) {
+      throw StateError(
+        'SUPABASE_URL or SUPABASE_ANON_KEY is empty. Fill .env (see .env.example).',
+      );
+    }
+  }
+}
