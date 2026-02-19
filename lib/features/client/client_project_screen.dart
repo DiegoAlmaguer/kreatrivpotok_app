@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../ui/kp_tokens.dart';
+import '../../core/utils/date_formatter.dart';
 import '../../widgets/kp_card.dart';
 import '../../ui/widgets/kp_empty.dart';
 
@@ -197,6 +198,11 @@ class _ClientProjectScreenState extends State<ClientProjectScreen> {
                                         'Статус: ${(p['status'] ?? '—').toString()}',
                                         style: KPText.caption,
                                       ),
+                                      KPGap.h4,
+                                      Text(
+                                        'Создан: ${DateFormatter.dateTimeWithRelative(p['created_at'])}',
+                                        style: KPText.caption,
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -229,12 +235,24 @@ class _ClientProjectScreenState extends State<ClientProjectScreen> {
                                     color: KPColors.accent2),
                                 KPGap.w12,
                                 Expanded(
-                                  child: Text(
-                                    (d['title'] ??
-                                            d['name'] ??
-                                            'Документ')
-                                        .toString(),
-                                    style: KPText.bodyStrong,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        (d['title'] ??
+                                                d['name'] ??
+                                                'Документ')
+                                            .toString(),
+                                        style: KPText.bodyStrong,
+                                      ),
+                                      KPGap.h4,
+                                      Text(
+                                        DateFormatter.dateTimeWithRelative(
+                                          d['created_at'],
+                                        ),
+                                        style: KPText.caption,
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 const Icon(Icons.open_in_new_rounded,
