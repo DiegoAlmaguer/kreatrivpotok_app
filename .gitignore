@@ -50,3 +50,8 @@ app.*.map.json
 *.key
 *.pem
 android/local.properties
+
+# local helper files
+_local_backup/
+codex.patch
+
